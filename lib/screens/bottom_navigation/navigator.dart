@@ -21,6 +21,7 @@ class Way1 extends StatefulWidget {
 class _Way1State extends State<Way1> {
   List<Widget> _screens = [];
   int _currentIndex = 0;
+  TaskModel taskModel = TaskModel.initialValue;
 
   @override
   void initState() {
@@ -103,6 +104,24 @@ class _Way1State extends State<Way1> {
           ),
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColor.itemColor,
+          onPressed: () {
+            textFieldDialog(
+                context: context,
+                taskModel: (task) {
+                  taskModel = task;
+                },
+                description: (description) {
+                  taskModel.copyWith(description: description);
+                },
+            );
+
+          },
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(60.r))),
+          child: SvgPicture.asset(AppImages.plus)),
     );
   }
 }

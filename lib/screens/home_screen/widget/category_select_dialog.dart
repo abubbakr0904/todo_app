@@ -5,11 +5,15 @@ import 'package:todo_app/screens/global.dart';
 import 'package:todo_app/utils/color/color.dart';
 import 'package:todo_app/utils/images/images.dart';
 
+import '../../../data/model/task_model.dart';
+
 showCategory(
     {required BuildContext context, required ValueChanged<int> catefory}) {
+  TaskModel taskModel = TaskModel.initialValue;
+  int prior = 0;
   showDialog(
     context: context,
-    builder: (context) => StatefulBuilder(builder: (context , setState){
+    builder: (context) => StatefulBuilder(builder: (context, setState) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 90),
         child: Material(
@@ -44,18 +48,19 @@ showCategory(
                   children: [
                     ...List.generate(
                       10,
-                          (index) => GestureDetector(
+                      (index) => GestureDetector(
                         onTap: () {
+                          prior = index;
                           categoryFlag = index;
-                          setState((){
-
-                          });
+                          setState(() {});
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(4.r)),
-                              color: categoryFlag == index ? AppColor.itemColor : const Color(0xFF272727)),
+                                  BorderRadius.all(Radius.circular(4.r)),
+                              color: categoryFlag == index
+                                  ? AppColor.itemColor
+                                  : const Color(0xFF272727)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -77,49 +82,55 @@ showCategory(
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          catefory.call(1);
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                            width: 100.w,
+                            padding: EdgeInsets.symmetric(vertical: 12.h),
+                            child: Center(
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                    color: AppColor.itemColor,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: AppImages.fontLato),
+                              ),
+                            ))),
+                    GestureDetector(
                       onTap: () {
-                        catefory.call(1);
+                        catefory.call(prior);
                         Navigator.pop(context);
                       },
                       child: Container(
-                          width: 150.w,
-                          padding: EdgeInsets.symmetric(vertical: 12.h),
-                          child: Center(
-                            child: Text(
-                              "Cancel",
-                              style: TextStyle(
-                                  color: AppColor.itemColor,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: AppImages.fontLato),
-                            ),
-                          ))),
-                  GestureDetector(
-                      onTap: () {
-                        catefory.call(5);
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(4.r)),
-                              color: AppColor.itemColor),
-                          width: 150.w,
-                          padding: EdgeInsets.symmetric(vertical: 12.h),
-                          child: Center(
-                            child: Text(
-                              "Save",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: AppImages.fontLato),
-                            ),
-                          )))
-                ],
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.r)),
+                            color: AppColor.itemColor),
+                        width: 150.w,
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                        child: Center(
+                          child: Text(
+                            "Save",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: AppImages.fontLato),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: 20.h,
@@ -128,7 +139,6 @@ showCategory(
           ),
         ),
       );
-    }
-    ),
+    }),
   );
 }

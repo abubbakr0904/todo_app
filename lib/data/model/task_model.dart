@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:todo_app/data/model/task_model_constans.dart';
 import 'package:todo_app/data/model/task_status.dart';
 
 class TaskModel {
@@ -8,6 +11,8 @@ class TaskModel {
   final DateTime deadline;
   final int priority;
   final TaskStatus status;
+  final String categoryIcon;
+  final int categoryColor;
 
   TaskModel({
     this.id,
@@ -17,6 +22,8 @@ class TaskModel {
     required this.category,
     required this.deadline,
     required this.priority,
+    required this.categoryIcon,
+    required this.categoryColor,
   });
 
   TaskModel copyWith({
@@ -27,6 +34,8 @@ class TaskModel {
     DateTime? deadline,
     int? priority,
     TaskStatus? status,
+    String? categoryIcon,
+    Color? categoryColor,
   }) {
     return TaskModel(
       description: description ?? this.description,
@@ -35,6 +44,8 @@ class TaskModel {
       category: category ?? this.category,
       deadline: deadline ?? this.deadline,
       priority: priority ?? this.priority,
+      categoryColor: categoryColor?.value ?? this.categoryColor,
+      categoryIcon: categoryIcon ?? this.categoryIcon
     );
   }
 
@@ -46,21 +57,40 @@ class TaskModel {
       category: json["category"] as String? ?? "",
       deadline: DateTime.parse(json["deadline"] as String? ?? ""),
       priority: json["priority"] as int? ?? 1,
+      categoryIcon: json["icon"] ?? "",
+      categoryColor: json["color"] ?? 1,
       id: json["_id"] as int? ?? 0,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "description": description,
-      "title": title,
-      "status": status.name,
-      "category": category,
-      "deadline": deadline.toString(),
-      "priority": priority,
+      TaskModelConstants.description: description,
+      TaskModelConstants.title: title,
+      TaskModelConstants.status: status.name,
+      TaskModelConstants.category: category,
+      TaskModelConstants.deadline: deadline.toString(),
+      TaskModelConstants.priority: priority,
+      TaskModelConstants.icon : categoryIcon,
+      TaskModelConstants.color : categoryColor,
     };
   }
 
+
+  String getString(){
+    return """
+    ${this.category},
+    ${this.priority},
+    ${this.categoryIcon},
+    ${this.deadline.hour},
+    ${this.deadline.minute},
+    ${this.title},
+    ${this.categoryColor},
+    ${this.status},
+    
+    
+    """;
+  }
   bool canAddTaskToDatabase() {
     if (title.isEmpty) return false;
     if (description.isEmpty) return false;
@@ -76,6 +106,8 @@ class TaskModel {
     category: "",
     deadline: DateTime.now(),
     priority: 1,
+    categoryColor: 0,
+    categoryIcon: ""
   );
 }
 
@@ -99,3 +131,4 @@ TaskStatus getStatus(String statusText) {
       }
   }
 }
+

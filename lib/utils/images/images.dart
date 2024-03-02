@@ -20,6 +20,25 @@ class AppImages{
   static const String sale = "assets/icons/sale.svg";
   static const String send = "assets/icons/send.svg";
   static const String flag = "assets/icons/flag.svg";
+  static const String bread = "assets/icons/bread.svg";
+  static const String workBag = "assets/icons/work_bag.svg";
+  static const String gantel = "assets/icons/gantel.svg";
+  static const String playstation = "assets/icons/play_station.svg";
+  static const String studentCap = "assets/icons/student_cap.svg";
+  static const String macroPhone = "assets/icons/macrophone.svg";
+  static const String music = "assets/icons/music.svg";
+  static const String puls = "assets/icons/puls.svg";
+  static const String video = "assets/icons/vidio.svg";
+  static const String categoryHome = "assets/icons/category_home.svg";
+
+  static const String alarm = "assets/icons/alarm.svg";
+  static const String repair = "assets/icons/repair.svg";
+  static const String notePencil = "assets/icons/penci_note.svg";
+  static const String strategy = "assets/icons/strategy.svg";
+  static const String meet = "assets/icons/meet.svg";
+  static const String message = "assets/icons/message.svg";
+  static const String code = "assets/icons/code.svg";
+  static const String grPlus = "assets/icons/green_plus.svg";
 
   //fonts_name
   static const fontLato  = "Lato";

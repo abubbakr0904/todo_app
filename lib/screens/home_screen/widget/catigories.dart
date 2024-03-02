@@ -4,12 +4,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo_app/utils/color/color.dart';
 import 'package:todo_app/utils/images/images.dart';
 
+import '../../../data/model/task_model.dart';
+
 colorsCategory(
     {required BuildContext context, required ValueChanged<int> catefory}) {
+  TaskModel taskModel = TaskModel.initialValue;
   int c = 2;
   showDialog(
     context: context,
-    builder: (context) => StatefulBuilder(builder: (context , setState){
+    builder: (context) => StatefulBuilder(builder: (context, setState) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 90),
         child: Material(
@@ -44,18 +47,18 @@ colorsCategory(
                   children: [
                     ...List.generate(
                       10,
-                          (index) => GestureDetector(
+                      (index) => GestureDetector(
                         onTap: () {
                           c = index;
-                          setState((){
-
-                          });
+                          setState(() {});
                         },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(4.r)),
-                              color: c == index ? AppColor.itemColor : const Color(0xFF272727)),
+                                  BorderRadius.all(Radius.circular(4.r)),
+                              color: c == index
+                                  ? AppColor.itemColor
+                                  : const Color(0xFF272727)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -99,26 +102,29 @@ colorsCategory(
                             ),
                           ))),
                   GestureDetector(
-                      onTap: () {
-                        catefory.call(5);
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(4.r)),
-                              color: AppColor.itemColor),
-                          width: 150.w,
-                          padding: EdgeInsets.symmetric(vertical: 12.h),
-                          child: Center(
-                            child: Text(
-                              "Save",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: AppImages.fontLato),
-                            ),
-                          )))
+                    onTap: () {
+                      catefory.call(5);
+                      print(c);
+                      taskModel = taskModel.copyWith(priority: c);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(4.r)),
+                          color: AppColor.itemColor),
+                      width: 150.w,
+                      padding: EdgeInsets.symmetric(vertical: 12.h),
+                      child: Center(
+                        child: Text(
+                          "Save",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: AppImages.fontLato),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
               SizedBox(
@@ -128,7 +134,6 @@ colorsCategory(
           ),
         ),
       );
-    }
-    ),
+    }),
   );
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:todo_app/data/model/category_model/category_model.dart';
 
+import '../../model/category_model/catigory_constans.dart';
 import '../../model/task_model.dart';
 import '../../model/task_model_constans.dart';
 
@@ -56,7 +58,16 @@ class LocalDatabase {
       ${TaskModelConstants.deadline} $textType,
       ${TaskModelConstants.status} $textType,
       ${TaskModelConstants.category} $textType,
-      ${TaskModelConstants.priority} $intType
+      ${TaskModelConstants.priority} $intType,
+      ${TaskModelConstants.icon} $textType,
+      ${TaskModelConstants.color} $intType
+    )''');
+
+    await db.execute('''CREATE TABLE ${CategoryConstants.tableName} (
+      ${CategoryConstants.icon} $textType,
+      ${CategoryConstants.category} $textType,
+      ${CategoryConstants.color} $textType,
+      ${CategoryConstants.id} $idType
     )''');
   }
 
@@ -68,12 +79,27 @@ class LocalDatabase {
     debugPrint("SAVED ID:$savedTaskID");
     return taskModel.copyWith(id: savedTaskID);
   }
+  static Future<CategoryModel> insertCategory(CategoryModel categoryModel) async {
+    debugPrint("INITIAL ID:${categoryModel.id}");
+    final db = await databaseInstance.database;
+    int savedTaskID =
+    await db.insert(CategoryConstants.tableName, categoryModel.toJson());
+    debugPrint("SAVED ID:$savedTaskID");
+    return categoryModel.copyWith(id: savedTaskID);
+  }
 
   static Future<List<TaskModel>> getAllTasks() async {
     final db = await databaseInstance.database;
     String orderBy = "${TaskModelConstants.id} DESC"; //"_id DESC"
     List json = await db.query(TaskModelConstants.tableName, orderBy: orderBy);
     return json.map((e) => TaskModel.fromJson(e)).toList();
+  }
+
+  static Future<List<CategoryModel>> getAllModel() async {
+    final db = await databaseInstance.database;
+    String orderBy = "${CategoryConstants.id} DESC"; //"_id DESC"
+    List json = await db.query(CategoryConstants.tableName, orderBy: orderBy);
+    return json.map((e) => CategoryModel.fromJson(e)).toList();
   }
 
   static Future<int> deleteTask(int id) async {
