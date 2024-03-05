@@ -104,7 +104,7 @@ colorsCategory(
                   GestureDetector(
                     onTap: () {
                       catefory.call(5);
-                      print(c);
+                      print(c + 1);
                       taskModel = taskModel.copyWith(priority: c);
                     },
                     child: Container(

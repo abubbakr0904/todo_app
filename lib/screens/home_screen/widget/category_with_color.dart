@@ -28,12 +28,11 @@ openCategory(
     builder: (context) => StatefulBuilder(builder: (context, setState) {
       _init() async {
         categories = await LocalDatabase.getAllModel();
-        print(categories.length);
-      }
+        setState((){
 
-      setState(() {
-        _init();
-      });
+        });
+      }
+      _init();
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 90),
         child: Material(
@@ -148,7 +147,8 @@ openCategory(
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AddCategory(clr: (v) {
+                        builder: (context) => AddCategory(
+                          clr: (v) {
                           catModel = catModel.copyWith(color: v);
                         }, icon: (v) {
                           catModel = catModel.copyWith(icon: v);

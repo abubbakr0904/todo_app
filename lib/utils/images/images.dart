@@ -7,6 +7,8 @@ class AppImages{
   static const String page3 = "assets/images/page3.png";
   static const String profilePhoto = "assets/images/profile.png";
   static const String homeScreen = "assets/images/home_photo.png";
+  static const homeeScreen = "assets/images/home_photo.png";
+  static const tick = "assets/images/tick.png";
 
   //svg
   static const String burger = "assets/icons/burger.svg";

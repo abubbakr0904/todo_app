@@ -1,22 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:todo_app/data/model/category_model/category_model.dart';
-import 'package:todo_app/screens/data.dart';
 import 'package:todo_app/screens/home_screen/widget/home_screen_widget.dart';
 import 'package:todo_app/utils/color/color.dart';
 import 'package:todo_app/utils/images/images.dart';
-
-import '../../data/lcoal/local_database/category_local.dart';
 import '../../data/lcoal/local_database/local.dart';
 import '../../data/model/task_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
+  const HomeScreen({super.key, required this.function});
+  final VoidCallback function;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -27,14 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime? dateTime;
   TimeOfDay? timeOfDay;
 
+
   @override
   void initState() {
     _init();
-    print("Nimadur");
+
+    super.initState();
     setState(() {
 
     });
-    super.initState();
   }
 
   List<TaskModel> tasks = [];
@@ -48,8 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     });
     }
-
-
 
   int c = 0;
 
@@ -102,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: tasks[index].categoryColor,
                       colr: c == index,
                       id: tasks[index].id!,
+                    context: context,
                     yangi: (){
                         setState(() {
 

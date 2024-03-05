@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:hive/hive.dart';
+
 import '../data/model/category_model/category_model.dart';
 import '../utils/images/images.dart';
 
@@ -60,3 +62,6 @@ List<CategoryModel> dataBases = [
   ),
 
 ];
+
+
+var box = Hive.box("myBox");

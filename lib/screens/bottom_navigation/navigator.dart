@@ -26,7 +26,11 @@ class _Way1State extends State<Way1> {
   @override
   void initState() {
     _screens = [
-      const HomeScreen(),
+      HomeScreen(
+        function: () {
+          setState(() {});
+        },
+      ),
       const Calendar(),
       const Focuse(),
       const Profile(),
@@ -88,7 +92,7 @@ class _Way1State extends State<Way1> {
               AppImages.clock,
               color: const Color(0xFF8D8D8D),
             ),
-            label: "Focuse",
+            label: "Done",
           ),
           BottomNavigationBarItem(
             activeIcon: SvgPicture.asset(
@@ -109,15 +113,14 @@ class _Way1State extends State<Way1> {
           backgroundColor: AppColor.itemColor,
           onPressed: () {
             textFieldDialog(
-                context: context,
-                taskModel: (task) {
-                  taskModel = task;
-                },
-                description: (description) {
-                  taskModel.copyWith(description: description);
-                },
+              context: context,
+              taskModel: (task) {
+                taskModel = task;
+              },
+              description: (description) {
+                taskModel.copyWith(description: description);
+              },
             );
-
           },
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(60.r))),
